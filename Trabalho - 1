@@ -1,0 +1,113 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int con1;
+        int con2;
+
+        System.out.println( );
+
+        do {
+            System.out.print("Informe o valor da quantidade do primeiro conjunto: ");
+            con1 = scanner.nextInt();
+        } while ( con1 <= 0);
+
+        int Grupo1 [] = new int[con1];
+
+        for (int i = 0; i < Grupo1.length; i++) {
+            System.out.print("Diga um valor para a " + (i + 1) + "º posição do conjunto: ");
+            Grupo1[i] = scanner.nextInt();
+        }
+
+        System.out.println( );
+
+        do {
+            System.out.print("Informe o valor da quantidade do segundo conjunto: ");
+            con2 = scanner.nextInt();
+        } while (con2 <= 0);
+
+        int Grupo2 [] = new int[con2];
+
+        for (int i = 0; i < Grupo2.length; i++) {
+            System.out.print("Diga um valor para a " + (i + 1) + "º posição do conjunto: ");
+            Grupo2 [i] = scanner.nextInt();
+        }
+
+        System.out.println( );
+
+        int Grupounidade[] = unidade(Grupo1, Grupo2);
+        System.out.print("A uniao dos dois conjuntos é: ");
+        printGroup(Grupounidade);
+
+        System.out.println( );
+
+        int Grupointersecao[] = intercesao(Grupo1, Grupo2);
+        System.out.print("A intersecção entre os dois conjuntos é: ");
+        printGroup(Grupointersecao);
+    }
+
+    public static int[] unidade(int [] Grupo1, int [] Grupo2) {
+
+        int Tamanhodaunidade = Grupo1.length + Grupo2.length;
+        int unidade[] = new int[Tamanhodaunidade];
+        int indunidade = 0;
+
+
+        for (int i = 0; i < Grupo1.length; i++) {
+            if (!conter(unidade, indunidade, Grupo1[i])) {
+                unidade[indunidade] = Grupo1[i];
+                indunidade++;
+            }
+        }
+
+        for (int i = 0; i < Grupo2.length; i++) {
+            if (!conter(unidade, indunidade, Grupo2[i])) {
+                unidade[indunidade] = Grupo2[i];
+                indunidade++;
+            }
+        }
+        return resize(unidade, indunidade);
+    }
+
+    public static int[] intercesao(int Grupo1[], int Grupo2[]) {
+        int[] tempIntersection = new int[Math.min(Grupo1.length, Grupo2.length)];
+        int indintercesao = 0;
+
+        for (int i = 0; i < Grupo1.length; i++) {
+            if (conter(Grupo2, Grupo2.length, Grupo1[i]) && !conter(tempIntersection, indintercesao, Grupo1[i])) {
+                tempIntersection[indintercesao] = Grupo1[i];
+                indintercesao++;
+            }
+        }
+
+        return resize(tempIntersection, indintercesao);
+    }
+
+    public static void printGroup(int variedade[]) {
+        for (int i = 0; i < variedade.length; i++) {
+            System.out.print(variedade[i]);
+            if (i < variedade.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
+    }
+
+    public static int[] resize(int variedade[], int nvtamanho) {
+        int[] nvvariedade = new int[nvtamanho];
+        for (int i = 0; i < nvtamanho; i++) {
+            nvvariedade[i] = variedade[i];
+        }
+        return nvvariedade;
+    }
+
+    public static boolean conter(int variedade[], int tamanho, int elemento) {
+        for (int i = 0; i < tamanho; i++) {
+            if (variedade[i] == elemento) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
