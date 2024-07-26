@@ -6,8 +6,6 @@ public class Main {
         int con1;
         int con2;
 
-        System.out.println( );
-
         do {
             System.out.print("Informe o valor da quantidade do primeiro conjunto: ");
             con1 = scanner.nextInt();
